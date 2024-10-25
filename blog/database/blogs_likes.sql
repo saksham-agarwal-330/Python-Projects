@@ -1,0 +1,57 @@
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+--
+-- Host: localhost    Database: blogs
+-- ------------------------------------------------------
+-- Server version	8.0.39
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `likes`
+--
+
+DROP TABLE IF EXISTS `likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `likes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `post_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`),
+  CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `likes`
+--
+
+LOCK TABLES `likes` WRITE;
+/*!40000 ALTER TABLE `likes` DISABLE KEYS */;
+INSERT INTO `likes` VALUES (4,3,2,'2024-08-02 14:03:22'),(18,8,2,'2024-08-02 14:19:16'),(45,5,1,'2024-08-02 15:12:57'),(68,1,1,'2024-08-02 16:14:44'),(74,1,12,'2024-08-02 16:58:09'),(76,5,2,'2024-08-08 18:29:12'),(78,8,1,'2024-08-16 19:36:59'),(80,9,23,'2024-08-16 20:03:32'),(86,2,23,'2024-08-17 19:27:22'),(88,1,23,'2024-08-18 16:54:35'),(89,2,1,'2024-08-20 19:27:32'),(90,58,23,'2024-10-24 11:03:00'),(91,5,23,'2024-10-24 11:14:56');
+/*!40000 ALTER TABLE `likes` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-10-25  1:14:04

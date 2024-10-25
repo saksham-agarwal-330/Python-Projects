@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="form-container1">
+    <h1>Add New Category</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-fields">
+            <label for="category">Category Name:</label>
+            <input type="text" id="category" name="category" value="{{ category.category if category else '' }}" required>
+        </div>
+        <div class="form-fields">
+            <label for="file1">Upload Image:</label>
+            <input type="file" id="file1" name="file1">
+        </div>
+        <div class="image-preview">
+            <!-- Placeholder for image preview if no existing image -->
+            <img id="imgPreview" src="" class="img-fluid" style="max-width: 250px; display: none;" alt="Image Preview">
+        </div>
+        <div class="form-actions" style="text-align: center;">
+        <button type="submit">Add Category</button>
+        </div>
+    </form>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</div>
+
+<script>
+    document.getElementById('file1').addEventListener('change', function(event) {
+        const [file] = event.target.files;
+        const imgPreview = document.getElementById('imgPreview');
+        
+        if (file) {
+            imgPreview.src = URL.createObjectURL(file);
+            imgPreview.style.display = 'block';  // Show the preview
+            imgPreview.onload = function() {
+                URL.revokeObjectURL(imgPreview.src); // Free up memory
+            }
+        } else {
+            imgPreview.src = '';  // Clear the image preview if no file is selected
+            imgPreview.style.display = 'none';  // Hide the preview if no image
+        }
+    });
+</script>
+
+{% endblock %}

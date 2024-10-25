@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        .post-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        .post-card h3 {
+            margin: 0 0 10px;
+        }
+        .post-card p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if results %}
+        <div>
+            {% for post in results %}
+                <div class="post-card">
+                    <h3>{{ post.title }}</h3>
+                    <!-- <p>{{ post.category }}</p> -->
+                    <p>{{ post.tagline }}</p>
+                    <p><a href="{{ url_for('post_route', post_slug=post.slug) }}">Read More</a></p>
+                
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

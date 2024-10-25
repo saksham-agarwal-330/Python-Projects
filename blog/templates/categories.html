@@ -1,0 +1,172 @@
+{% extends "layout.html" %}
+{% block title %}Category{% endblock %}
+{% block css %}
+<style>
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.posts:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.left img {
+    height: 100%;
+    width: auto;
+    max-height: 150px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+
+.post_details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth_detail ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 1rem;
+}
+
+.auth_detail li {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.auth_detail li span {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.auth_detail li a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth_detail li a:hover,
+.post_details a:hover h1 {
+    color: #7380ec;
+    text-decoration: none;
+}
+
+.post_details h1 {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.post_details p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+hr {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.post_content {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .post_content {
+        flex-direction: column;
+    }
+
+    .left img {
+        max-height: 250px; /* Adjust if needed */
+    }
+    .left img:hover{
+    transform: scale(1.05);
+}
+}
+
+@media (max-width: 480px) {
+    .category h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .posts {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .post_details h1 {
+        font-size: 1.5rem;
+    }
+
+    .post_details p {
+        font-size: 1rem;
+    }
+    
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="category">
+        <h1>Lifestyle blogs</h1>
+        {% for post in posts %}
+        <div class="posts">
+            <div class="auth_detail">
+                <ul>
+                    <li><span class="fa-regular fa-clock"></span>{{ post.date }}</li>
+                    <li><a href="#"><span class="fa-regular fa-user"></span>{{ post.author.username }}</a></li>
+                    <li>
+                        {% if post.post_id in liked_post_ids %}
+                        <span class="fa-solid fa-heart like-icon" data-post-id="{{ post.post_id }}" data-liked="true"></span><span class="like-count">{{ post.likes_count }} likes</span>
+                        {% else %}
+                        <span class="fa-regular fa-heart like-icon" data-post-id="{{ post.post_id }}" data-liked="false"></span><span class="like-count">{{ post.likes_count }} likes</span>
+                        {% endif %}
+                    </li>
+                    <li><a href="{{ post.slug }}/#comments"><span class="fa-regular fa-comment"></span>{{ post.comments_count }} comments</a></li>
+                    <li><span class="fa-regular fa-eye"></span>{{ post.visit_count }} Views</li>
+                </ul>
+            </div>
+            <hr>
+            <div class="post_content">
+                <div class="left">
+                    {% set fname = 'img/' + (post.img_file if post.img_file else 'about-bg.jpg') %}
+                <img src="{{ url_for('static', filename=fname) }}" alt="Post Image" loading="lazy">
+                </div>
+                <div class="post_details">
+                    <a href="{{ url_for('post_route', post_slug=post.slug) }}"><h1>{{ post.title }}</h1></a>
+                    <p>{{ post.content | striptags | truncate(200) }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

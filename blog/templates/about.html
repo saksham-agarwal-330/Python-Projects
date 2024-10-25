@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"> -->
+<style>
+    /* Basic Reset */
+  
+
+    .masthead {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        color: white;
+        background-color: red;
+        background-image: url('static/img/post-bg.jpg');
+    }
+
+    .masthead .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .masthead .page-heading h1 {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    .masthead .page-heading .subheading {
+        font-size: 1.25rem;
+        margin-top: 0.5rem;
+    }
+
+  
+
+    main {
+        padding: 2rem 0;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    section {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+        background: #fff;
+        border-radius: 10px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    section h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #333;
+        font-weight: 600;
+    }
+
+    section p {
+        margin-bottom: 1rem;
+        color: #555;
+        line-height: 1.8;
+    }
+
+    .img-fluid {
+        width: auto;
+        height: 200px;
+        border-radius: 10px;
+        margin-top: 1rem;
+    }
+</style>
+</head>
+
+
+<header class="masthead">
+    <div class="container">
+        <div class="page-heading">
+            <h1>About Us</h1>
+            <span class="subheading">Have questions? I have answers.</span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section id="intro">
+        <div class="content">
+        <h2>Welcome to BlogConnect!</h2>
+        <p>At BlogConnect, we believe that everyone has a story to tell and a unique perspective to share. Our mission is to
+            provide a user-friendly and engaging platform where writers, thinkers, and creators can publish their
+            thoughts and connect with a like-minded community.</p>
+        </div>
+        <img src="static/img/blog-connect.jpg" alt="Welcome to BlogX" class="img-fluid">
+    </section>
+
+    <section id="mission">
+        <img src="static/img/our-mission.jpg" alt="Our Mission" class="img-fluid">
+        <div class="content">
+        <h2>Our Mission</h2>
+        <p>BlogConnect's mission is to provide a user-friendly and engaging platform where writers, thinkers, and creators can
+            publish their thoughts and connect with a like-minded community.</p>
+            </div>
+    </section>
+
+    <section id="story">
+        <div class="content">
+        <h2>Our Story</h2>
+        <p>BlogConnect was founded in 2024 with the goal of creating a space where content creators could express themselves
+            freely and build their audience. Since then, we have grown into a vibrant community of bloggers who share
+            their insights, experiences, and passions with the world.</p>
+        </div>
+        <img src="static/img/our-story.webp" alt="Our Story" class="img-fluid">
+    </section>
+
+
+    <section id="features">
+        <img src="static/img/choose-us.jpeg" alt="Why BlogX?" class="img-fluid">
+        <div class="content">
+        <h2>Why BlogConnect?</h2>
+        <ul>
+            <li><strong>Intuitive Editor:</strong> Our easy-to-use editor, powered by Quill, makes writing and
+                formatting your posts a breeze.</li>
+            <li><strong>Community Engagement:</strong> Connect with other bloggers, leave comments, and share your
+                favorite posts.</li>
+            <li><strong>Analytics:</strong> Track your post views and engagement with our built-in analytics tools.</li>
+        </ul>
+        </div>
+    </section>
+
+    <section id="community">
+        <div class="content">
+        <h2>Join Our Community</h2>
+        <p>BlogConnect is more than just a blogging platform; it's a community of passionate individuals who support and
+            inspire each other. Whether you're a seasoned writer or just starting, you'll find a home here at BlogX.</p>
+        </div>
+            <img src="static/img/community.jpg" alt="Join Our Community" class="img-fluid">
+    </section>
+
+
+    <section id="contact">
+        <div class="content">
+        <h2>Get in Touch</h2>
+        <p>Have questions or feedback? We'd love to hear from you! Contact us at <a
+                href="mailto:support@blogConnect.com">support@blogConnect.com</a> or follow us on social media.</p>
+        </div>
+                <!-- <img src="static/img/contact.jpg" alt="Get in Touch" class="img-fluid"> -->
+    </section>
+
+    <section id="cta">
+        <div class="content">
+        <h2>Start Your Journey</h2>
+        <p>Ready to start blogging? <a href="signup.html">Sign up today</a> and join the BlogX community!</p>
+        </div>
+        <!-- <img src="static/img/cta.jpg" alt="Start Your Journey" class="img-fluid"> -->
+    </section>
+</main>
+
+
+
+{% endblock %}

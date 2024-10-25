@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block body %}
+
+<header class="masthead" style="background-image: url('{{url_for('static',filename='img/contact-banner.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="page-heading">
+            <h1>Contact Us</h1>
+            <span class="subheading">Have questions? I have answers.</span>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<main class="main-content">
+    <!-- <div class="container"> -->
+    <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as
+        possible!</p>
+    <div class="form-container">
+        <form action="/contact" method="post">
+            <div class="form-row">
+                <div class="form-fields">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
+
+                <div class="form-fields">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" name="phone" id="phone" required>
+                </div>
+            </div>
+            <div class="form-fields">
+                <label for="tagline">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="form-fields">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" placeholder="Enter your message here..." style="height: 12rem"
+                    required></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <!-- </div> -->
+</main>
+{% endblock %}

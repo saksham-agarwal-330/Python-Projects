@@ -1,0 +1,208 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<!-- Slider -->
+<div class="slider">
+    <div class="slides">
+        <div class="slide" style="background-image: url('{{url_for('static',filename='img/home-bg.jpg')}}')">
+            <div>
+                <h2>What is AI?</h2>
+                <p>AI is artificial intelligence. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('{{url_for('static',filename='img/about-bg.jpg')}}')">
+            <div>
+                <h2>Discover Technology</h2>
+                <p>Explore the latest trends and advancements in technology.</p>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('{{url_for('static',filename='img/post-bg.jpg')}}')">
+            <div>
+                <h2>Future of AI</h2>
+                <p>Learn about the future applications and implications of AI.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation buttons -->
+    <div class="slider-nav">
+        <button id="prevBtn">&#10094;</button>
+        <button id="nextBtn">&#10095;</button>
+    </div>
+</div>
+<div class="carousel_container">
+    <h2>Categories</h2>
+    <div class="carousel">
+        <div class="categories">
+            
+            {% for category in categories %}
+            <div class="card">
+                <img src="{{url_for('static',filename='img/home-bg.jpg')}}" alt="Travel" class="card-img">
+                <div class="card-label"><a href="{{ url_for('category', category=category.name) }}">{{category.name}}</a></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <button class="nav-btn left" onclick="slideLeft()">&#10094;</button>
+    <button class="nav-btn right" onclick="slideRight()">&#10095;</button>
+</div>
+
+<div class="post_container">
+    <div class="trending_posts">
+        <h2>Trending Posts</h2>
+        <div class="cards">
+            {% for post in posts %}
+            <div class="post_card">
+                {% set fname = 'img/' + (post.img_file if post.img_file else 'about-bg.jpg') %}
+                <img src="{{ url_for('static', filename=fname) }}" alt="Post Image">
+                <div class="post_card-content">
+                    <h3><a href="{{ url_for('post_route', post_slug=post.slug) }}">{{ post.title }}</a></h3>
+                    <p>{{ post.content | striptags | truncate(100) }}</p>
+
+
+                </div>
+                <div class="post_card-footer">
+                    <div class="icon">
+
+
+
+                        {% if post.post_id in liked_post_ids %}
+                        <span class="fa-solid fa-heart like-icon" data-post-id="{{ post.post_id }}"
+                            data-liked="true"></span><span class="like-count">{{
+                            post.likes_count }}</span>
+                        {% else %}
+                        <span class="fa-regular fa-heart like-icon" data-post-id="{{ post.post_id }}"
+                            data-liked="false"></span><span class="like-count">{{
+                            post.likes_count }}</span>
+                        {% endif %}
+
+                    </div>
+                    <div class="icon">
+                        <a href="{{ url_for('post_route', post_slug=post.slug) }}">
+                        <span class="fa-regular fa-comment"></span>
+                        <span>{{ post.comments_count }}</span>
+                        </a>
+                    </div>
+                    <div class="icon">
+                        <span class="fa-regular fa-eye"></span>
+                        <span>{{ post.visit_count }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+        <div class="form-actions">
+            <a class="btn btn-primary text-uppercase" href="{{prev}}">&larr; Previous</a>
+            <a class="btn btn-primary text-uppercase" href="{{next}}">&rarr; Next</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let currentIndex = 0;
+        const categories = document.querySelector('.categories');
+        const totalCategories = categories.children.length;
+
+        function updateVisibleCount() {
+            const containerWidth = document.querySelector('.carousel').offsetWidth;
+            const itemWidth = document.querySelector('.card').offsetWidth + 20; // 20px is the margin (10px each side)
+            return Math.floor(containerWidth / itemWidth);
+        }
+
+        function slideLeft() {
+            const visibleCount = updateVisibleCount();
+            if (currentIndex <= 0) {
+                currentIndex = totalCategories - visibleCount;
+            } else {
+                currentIndex--;
+            }
+            updateTransform();
+        }
+
+        function slideRight() {
+            const visibleCount = updateVisibleCount();
+            if (currentIndex >= totalCategories - visibleCount) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            updateTransform();
+        }
+
+        function updateTransform() {
+            const visibleCount = updateVisibleCount();
+            const maxIndex = totalCategories - visibleCount;
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            } else if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+            const itemWidth = document.querySelector('.card').offsetWidth + 20; // 20px is the margin (10px each side)
+            categories.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+
+        function adjustCarousel() {
+            categories.style.transition = 'none'; // Disable transition during resize
+            updateTransform();
+            setTimeout(() => {
+                categories.style.transition = 'transform 0.5s ease-in-out'; // Re-enable transition
+            }, 300);
+        }
+
+        window.addEventListener('resize', adjustCarousel);
+        adjustCarousel();
+
+        document.querySelector('.nav-btn.left').addEventListener('click', slideLeft);
+        document.querySelector('.nav-btn.right').addEventListener('click', slideRight);
+    });
+</script>
+<script>
+    document.querySelector('.hamburger').addEventListener('click', () => {
+        document.querySelector('.menu').classList.toggle('active');
+    });
+
+    document.querySelector('.profile img').addEventListener('click', () => {
+        document.querySelector('.profile-menu-wrap').classList.toggle('show');
+    });
+</script>
+<script>
+    const slides = document.querySelector('.slides');
+    const slide = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        if (index >= slide.length) {
+            currentIndex = 0;
+        } else if (index < 0) {
+            currentIndex = slide.length - 1;
+        } else {
+            currentIndex = index;
+        }
+        slides.style.transform = `translateX(${-currentIndex * 100}%)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        showSlide(currentIndex + 1);
+    });
+
+    prevBtn.addEventListener('click', () => {
+        showSlide(currentIndex - 1);
+    });
+
+    // Auto slide every 5 seconds
+    setInterval(() => {
+        showSlide(currentIndex + 1);
+    }, 5000);
+</script>
+
+
+{% endblock %}

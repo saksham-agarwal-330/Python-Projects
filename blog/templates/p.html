@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+    <!-- Quill CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&display=swap">
+    <!-- Main CSS -->
+    <style>
+        /* Universal Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Gill Sans', sans-serif;
+            font-size: 0.88rem;
+            background-color: rgba(188, 159, 64, 0.541);
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            display: grid;
+            grid-template-columns: auto 18rem;
+            gap: 1rem;
+            width: 96%;
+            margin: 0 auto;
+        }
+
+        /* Post Content */
+        .post_content {
+            background-color: azure;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        /* Author Details */
+        .auth_detail ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .auth_detail li {
+            display: flex;
+            align-items: center;
+            margin: 0 1.2rem 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .auth_detail span {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        /* Post Content Text */
+        .post-content ul,
+        .post-content ol {
+            margin-left: 20px;
+            padding-left: 20px;
+        }
+
+        .post-content blockquote {
+            border-left: 4px solid #ccc;
+            padding-left: 10px;
+            margin-left: 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Comments Section */
+        .comments {
+            margin: 1rem auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .comments h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .comments textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        /* Form Styling */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .form-row input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            flex: 1;
+        }
+
+        .form-actions {
+            text-align: right;
+            margin-top: 1.5rem;
+        }
+
+        .form-actions button {
+            padding: 0.75rem 1.5rem;
+            background-color: #141414;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-actions button:hover {
+            background-color: #333;
+        }
+
+        /* Popular Posts */
+        .pop_posts {
+            background-color: rgb(224, 225, 225);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .pop_posts h2 {
+            margin: 1rem 0;
+        }
+
+        .posts ul li {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .posts ul li a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .posts ul li a:hover {
+            color: red;
+            text-decoration: underline;
+        }
+
+        /* Details Section */
+        .details {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .details hr {
+            border: 0;
+            height: 2px;
+            background-color: gray;
+            margin: 2rem 0;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .details {
+                margin-top: 2rem;
+            }
+
+            .post_content {
+                padding: 1rem;
+            }
+
+            .auth_detail ul {
+                align-items: flex-start;
+            }
+
+            .auth_detail li {
+                margin-right: 0.7rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 0.75rem;
+            }
+
+            .post_content img {
+                max-height: 300px;
+            }
+
+            .auth_detail span {
+                font-size: 1.2rem;
+            }
+
+            .auth_detail li {
+                font-size: 0.9rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+        }
+        input[type=search]{
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top: 1rem;
+        }
+/* User Comment Container */
+.users-comment {
+    margin-top: 2rem;
+}
+
+.users-comment h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Comment Box Styling */
+.user-comment {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Comment Details */
+.comment-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Profile Picture Styling */
+.comment-details .profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+    margin: 0;
+}
+
+/* Username Styling */
+.comment-details .username a {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.comment-details .username a:hover {
+    color: #007bff;
+}
+
+/* Comment Content */
+.comment-content {
+    margin-left: 1rem;
+    padding: 0.5rem 0rem;
+    /* border: 1px solid #ddd; */
+    border-radius: 8px;
+    /* background-color: #fff; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+/* Comment Text */
+.comment-content p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Post Content Images */
+.post_content img {
+    display: block;
+    max-width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 1.5rem auto;
+}
+
+.profile-pic img {
+    height: 1.8rem;
+    width: 1.8rem;
+    border-radius: 50%;
+    /* display: block;
+    max-width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 8px;*/
+    margin: 1.5rem 0;
+}
+
+/* Divider */
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 1.5rem 0;
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Add a header if needed -->
+    </header>
+
+    <main class="container">
+        <!-- Post Content Section -->
+        <article class="post_content">
+            <h1>{{ post.title }}</h1>
+            <div class="auth_detail">
+                <ul>
+                    <li><span class="material-symbols-outlined">update</span>{{ post.date }}</li>
+                    <li><span class="material-symbols-outlined">person</span>{{ post.username }}</li>
+                    <li><span class="material-symbols-outlined">message</span>{{ post.comments_count }} comments</li>
+                    <li><span class="material-symbols-outlined">visibility</span>{{ post.visit_count }} Views</li>
+                </ul>
+            </div>
+            <hr>
+            <div class="content">
+                {% set fname = 'img/' + (post.img_file if post.img_file else 'about-bg.jpg') %}
+                <img src="{{ url_for('static', filename=fname) }}" alt="Post Image" loading="lazy">
+                <div class="post-content">
+                    {{ post.content|safe }}
+                </div>
+            </div>
+            <!-- Comments Section -->
+            <hr>
+            <div class="users-comment">
+                <h2>Comments</h2>
+
+                {% if comments %}
+                {% for comment in comments %}
+
+                <div class="comment-details">
+                    {% set fname = 'img/'+ (comment.user.profile_pic if comment.user.profile_pic else 'default-profile-pic.jpg') %}
+                    <img src="{{ url_for('static', filename=fname) }}" alt="{{ comment.user.username }}" class="profile-pic">
+
+
+
+
+
+                    <p class="username"><a href="/">{{ comment.user.username }}</a></p>
+                </div>
+                <div class="comment-content">
+                    <p class="content">{{ comment.content }}</p>
+                </div>
+                <hr>
+            
+                {% endfor %}
+                {% else %}
+                <p>No comments yet</p>
+                {% endif %}
+
+            </div>
+
+            
+            <section class="comments">
+                <form action="{{ url_for('post_route', post_slug=post.slug) }}" method="post">
+                    <h2>Leave a Comment</h2>
+                    <textarea name="comment" placeholder="Write here..." required></textarea>
+                    <div class="form-row">
+                        <input type="email" name="email" placeholder="Email*" required>
+                        <input type="tel" name="phone" placeholder="Phone">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit">Post Comment</button>
+                    </div>
+                </form>
+            </section>
+        </article>
+
+        <!-- Popular Posts Sidebar -->
+        <aside class="details">
+            <form action="/search" method="get" class="search-form">
+                <h2>Search Blog</h2>
+                <input type="search" name="query" placeholder="Search...">
+            </form>
+            <hr>
+            <div class="pop_posts">
+                <h2>Popular Posts</h2>
+                <hr>
+                <div class="posts">
+                    <ul>
+                        {% for post in popular_posts %}
+                        <li><a href="{{ url_for('post_route', post_slug=post.slug) }}">{{ post.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+
+    <!-- Quill JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+</body>
+
+</html>

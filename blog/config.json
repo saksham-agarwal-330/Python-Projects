@@ -1,0 +1,19 @@
+{
+    "params":
+    {
+        "local_server":"True",
+        "local_uri":"mysql://root:Sakshamlocalhost:3306/blogs",
+        "prod_uri":"mysql://root:Sakshamlocalhost:3306/blogs",
+        "fb_url":"https://www.facebook.com/",
+        "tw_url":"https://www.twitter.com/",
+        "gh_url":"https://www.github.com/",
+        "no_of_posts":"8",
+        "blog_name":"BlogConnect",
+        "gmail-user":"sakshamagarwal93@gmail.com",
+        "gmail-password":"zlzb owfy uvge fpjk",
+        "admin-user":"Saksham",
+        "admin-pass":"agarwal",
+        "upload_location":"C:\\Users\\saksh\\OneDrive\\Documents\\OneDrive\\Desktop\\Python\\blog\\static\\img"
+
+    }
+}

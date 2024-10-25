@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="form-container1">
+    <h1>Sign In</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="/login" method="POST">
+
+        <div class="form-fields">
+            <label for="uname">User Name</label>
+            <input type="text" name="uname" id="uname" placeholder="Username" required>
+        </div>
+
+        <div class="form-fields">
+            <label for="upass">Password</label>
+            <input type="password" name="upass" id="upass" placeholder="Password" required>
+        </div>
+        <div class="forget"><a href="#">Forget Password?</a></div>
+        <div class="form-actions">
+            <div class="auth">
+                <button type="submit">Login</button>
+            </div>
+        </div>
+        <div class="separator">Or signin using</div>
+        <div class="social-login">
+            <button type="button"><a href="/google/"><i class="fab fa-google"></i></a></button>
+            <button type="button"><i class="fab fa-github"></i></button>
+            <button type="button"><i class="fab fa-twitter"></i></button>
+        </div>
+        <div class="member">
+            <p>Don't have an account? <a href="/register">Signup</a></p>
+        </div>
+    </form>
+</div>
+{% endblock %}
